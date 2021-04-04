@@ -13,6 +13,7 @@
 
 #include <iostream>
 using namespace glm;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -227,7 +228,7 @@ int main()
 		// Рендеринг
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // очищаем буфер цвета и буфер глубины
-
+		glPolygonMode(GL_BACK, GL_LINE);
 		// Привязка текстур к соответствующим текстурным юнитам
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
@@ -250,7 +251,7 @@ int main()
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			// Вычисляем матрицу модели для каждого объекта и передаем её в шейдер до отрисовки
-			glm::mat4 model = glm::mat4(1.0f);
+			mat4 model = mat4(1.0f);
 			model = glm::translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
