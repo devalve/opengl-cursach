@@ -80,8 +80,8 @@ int main()
 	// Связывание VAO (он уже связан, но мы сделаем это еще раз для наглядности).
 	// Поскольку у нас есть только один VАО, то мы можем связать его заранее, прежде чем визуализировать соответствующий треугольник
 	glBindVertexArray(VAO);
-
-
+	float offset = 0.3f;
+	
 	// Цикл рендеринга
 	while (!glfwWindowShouldClose(window))
 	{
@@ -100,6 +100,7 @@ int main()
 
 		// Рендеринг треугольника
 		myShader.use();
+		myShader.setFloat("xOffset", offset);
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 
