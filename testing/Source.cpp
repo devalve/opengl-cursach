@@ -45,7 +45,7 @@ int main()
     }
 
     // Компилирование нашей шейдерной программы
-    Shader myShader("./shaders/vertex.vs", "./shaders/fragment.fs");
+    Shader myShader("./shaders/vertex.glsl", "./shaders/fragment.glsl");
 
     // Указание вершин (и буфера(ов)) и настройка вершинных атрибутов
     float vertices[] = {
