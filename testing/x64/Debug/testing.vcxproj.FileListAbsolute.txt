@@ -1,1 +1,0 @@
-C:\Code\C++\opengl-snippets\testing\x64\Debug\testing.exe

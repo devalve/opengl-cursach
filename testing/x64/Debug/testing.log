@@ -1,3 +1,0 @@
-﻿  Source.cpp
-LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
-  testing.vcxproj -> C:\Code\C++\opengl-snippets\testing\x64\Debug\testing.exe
