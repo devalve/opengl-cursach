@@ -13,7 +13,7 @@ void processInput(GLFWwindow* window);
 // Константы
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
-
+float countTex = 0.2f;
 int main()
 {
     // glfw: инициализация и конфигурирование    
@@ -64,7 +64,7 @@ int main()
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
-
+    glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -85,21 +85,22 @@ int main()
 
 
     // Загрузка и создание текстуры
-    unsigned int texture[2];
-    glGenTextures(2, texture);
-    glBindTexture(GL_TEXTURE_2D, texture[0]); // все последующие GL_TEXTURE_2D-операции теперь будут влиять на данный текстурный объект
+    unsigned int tex0, tex1 ;
+    glGenTextures(1, &tex0);  
+    glBindTexture(GL_TEXTURE_2D, tex0); 
+    // все последующие GL_TEXTURE_2D-операции теперь будут влиять на данный текстурный объект
+     
 
     // Установка параметров наложения текстуры
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // установка метода наложения текстуры GL_REPEAT (стандартный метод наложения)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     // Установка параметров фильтрации текстуры
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
     // Загрузка изображения, создание текстуры и генерирование мипмап-уровней
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true);
     unsigned char* data = stbi_load("./img/wall.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
@@ -112,20 +113,49 @@ int main()
     }
     stbi_image_free(data);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(1, &tex1);
+    glBindTexture(GL_TEXTURE_2D, tex1);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // установка метода наложения текстуры GL_REPEAT (стандартный метод наложения)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Установка параметров фильтрации текстуры
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    stbi_set_flip_vertically_on_load(true);
+    data = stbi_load("./img/smaylik.png", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+
+    myShader.use();
+    myShader.setInt("tex0", 0);
+    myShader.setInt("tex1", 1);
+
+    
     // Цикл рендеринга
     while (!glfwWindowShouldClose(window))
     {
         // Обработка ввода
         processInput(window);
-
+        myShader.setFloat("countTex", countTex);
         // Рендеринг
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Связывание текстуры
-        glBindTexture(GL_TEXTURE_2D, texture[0]);
-
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex0);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, tex1);
         // Рендеринг ящика
         myShader.use();
         glBindVertexArray(VAO);
@@ -151,6 +181,16 @@ void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+        countTex += 0.002f;
+        if (countTex <= 0.5)
+            countTex += 0.002f;
+    }
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+        countTex -= 0.002f;
+        if (countTex >= 0.0f)
+            countTex -= 0.002f;
+    }
 }
 
 // glfw: всякий раз, когда изменяются размеры окна (пользователем или операционной системой), вызывается данная callback-функция
