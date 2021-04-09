@@ -1,9 +1,11 @@
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <GLFW/glfw3.h> 
+#include "headers/shader.h"
+#include "headers/stb_image.h"
 
 #include <iostream>
 #include <cmath>
-#include "shader.h"
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -12,123 +14,149 @@ void processInput(GLFWwindow* window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-
-
-
-float vert[] = {
-	 0.5f, -0.5f, 0.0f,      1.0f, 0.0f, 0.0f,   // нижняя правая вершина
-	-0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f,   // нижняя левая вершина
-	 0.0f,  0.5f, 0.0f,		 0.0f, 0.0f, 1.0f    // верхняя вершина
-};
-
 int main()
 {
-	
-
-
-	// glfw: инициализация и конфигурирование
-	glfwInit();
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfw: инициализация и конфигурирование    
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // раскомментируйте эту строку, если используете macOS
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // раскомментируйте эту строку, если используете macOS
 #endif
 
-	// glfw: создание окна
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "testing", NULL, NULL);
-	if (window == NULL)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    // glfw: создание окна
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "testing", NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-	// glad: загрузка всех указателей на OpenGL-функции
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		return -1;
-	}
+    // glad: загрузка всех указателей на OpenGL-функции
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
 
-	// Компилирование нашей шейдерной программы
-	Shader myShader("./shaders/vertex.vs", "./shaders/fragment.fs");
+    // Компилирование нашей шейдерной программы
+    Shader myShader("./shaders/vertex.vs", "./shaders/fragment.fs");
 
-	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-
-	// Сначала связываем объект вершинного массива, затем связываем и устанавливаем вершинный буфер(ы), и затем конфигурируем вершинный атрибут(ы)
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
-
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3*sizeof(float)));
-	glEnableVertexAttribArray(1);
-	// Вы можете отменить привязку VАО после этого, чтобы другие вызовы VАО случайно не изменили этот VAO (но подобное довольно редко случается).
-	// Модификация других VAO требует вызов glBindVertexArray(), поэтому мы обычно не снимаем привязку VAO (или VBO), когда это не требуется напрямую
-	// glBindVertexArray(0);
+    // Указание вершин (и буфера(ов)) и настройка вершинных атрибутов
+    float vertices[] = {
+        // координаты(экранные)        // цвета            // текстурные координаты(не зависят от экранных)
+        0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // верхняя правая вершина
+        0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // нижняя правая вершина
+       -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // нижняя левая вершина
+       -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // верхняя левая вершина 
+    };
+    unsigned int ind[] = {
+        0, 1, 3, // первый треугольник
+        1, 2, 3  // второй треугольник
+    };
+    unsigned int VBO, VAO, EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
 
-	// Связывание VAO (он уже связан, но мы сделаем это еще раз для наглядности).
-	// Поскольку у нас есть только один VАО, то мы можем связать его заранее, прежде чем визуализировать соответствующий треугольник
-	glBindVertexArray(VAO);
-	float offset = 0.3f;
-	
-	// Цикл рендеринга
-	while (!glfwWindowShouldClose(window))
-	{
-		// Обработка ввода
-		processInput(window);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-		// Рендеринг
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(ind), ind, GL_STATIC_DRAW);
 
-		// Убеждаемся, что активировали шейдерную программу (прежде, чем вызывать glUniform())
-		
+    // Координатные атрибуты
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
-		// Обновление шейдерных uniform-переменных
-	
+    // Цветовые атрибуты
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
-		// Рендеринг треугольника
-		myShader.use();
-		myShader.setFloat("xOffset", offset);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+    // Атрибуты текстурных координат
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
-		// glfw: обмен содержимым front- и back- буферов. Отслеживание событий ввода\вывода (была ли нажата/отпущена кнопка, перемещен курсор мыши и т.п.)
-		glfwSwapBuffers(window);
-		glfwPollEvents();
-	}
 
-	// Опционально: освобождаем все ресурсы, как только они выполнили свое предназначение
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
+    // Загрузка и создание текстуры
+    unsigned int texture[2];
+    glGenTextures(2, texture);
+    glBindTexture(GL_TEXTURE_2D, texture[0]); // все последующие GL_TEXTURE_2D-операции теперь будут влиять на данный текстурный объект
 
-	// glfw: завершение, освобождение всех ранее задействованных GLFW-ресурсов
-	glfwTerminate();
-	return 0;
+    // Установка параметров наложения текстуры
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT); // установка метода наложения текстуры GL_REPEAT (стандартный метод наложения)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    // Установка параметров фильтрации текстуры
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // Загрузка изображения, создание текстуры и генерирование мипмап-уровней
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char* data = stbi_load("./img/wall.jpg", &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
+    // Цикл рендеринга
+    while (!glfwWindowShouldClose(window))
+    {
+        // Обработка ввода
+        processInput(window);
+
+        // Рендеринг
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // Связывание текстуры
+        glBindTexture(GL_TEXTURE_2D, texture[0]);
+
+        // Рендеринг ящика
+        myShader.use();
+        glBindVertexArray(VAO);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        // glfw: обмен содержимым front- и back- буферов. Отслеживание событий ввода/вывода (была ли нажата/отпущена кнопка, перемещен курсор мыши и т.п.)
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    // Опционально: освобождаем все ресурсы, как только они выполнили свое предназначение
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+
+    // glfw: завершение, освобождение всех выделенных ранее GLFW-реурсов
+    glfwTerminate();
+    return 0;
 }
 
 // Обработка всех событий ввода: запрос GLFW о нажатии/отпускании кнопки мыши в данном кадре и соответствующая обработка данных событий
 void processInput(GLFWwindow* window)
 {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
 
 // glfw: всякий раз, когда изменяются размеры окна (пользователем или операционной системой), вызывается данная callback-функция
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	// Убеждаемся, что окно просмотра соответствует новым размерам окна.
-	// Обратите внимание, высота будет значительно больше, чем указано, на Retina-дисплеях
-	glViewport(0, 0, width, height);
+    // Убеждаемся, что окно просмотра соответствует новым размерам окна.
+    // Обратите внимание, что высота и ширина будут значительно больше, чем указано, на Retina-дисплеях
+    glViewport(0, 0, width, height);
 }
