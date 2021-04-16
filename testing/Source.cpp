@@ -129,12 +129,12 @@ int main()
 
 	// Указание вершин (и буфера(ов)) и настройка вершинных атрибутов
 
-	unsigned int VBO, VAO, EBO;
-	glGenVertexArrays(1, &VAO);
+	unsigned int VBO, cubeVAO, EBO;
+	glGenVertexArrays(1, &cubeVAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
-	glBindVertexArray(VAO);
+	glBindVertexArray(cubeVAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -218,6 +218,7 @@ int main()
 		processInput(window);
 		// Рендеринг
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Связывание текстуры
@@ -242,7 +243,7 @@ int main()
 
 
 		
-		glBindVertexArray(VAO);
+		glBindVertexArray(cubeVAO);
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			mat4 model = mat4(1.0f);
@@ -260,7 +261,7 @@ int main()
 	}
 
 	// Опционально: освобождаем все ресурсы, как только они выполнили свое предназначение
-	glDeleteVertexArrays(1, &VAO);
+	glDeleteVertexArrays(1, &cubeVAO);
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 
