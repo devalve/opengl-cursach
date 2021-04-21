@@ -33,6 +33,160 @@ float lastFrame = 0.0f;
 
 // Освещение
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+
+
+
+float vertices[] = {
+    // координаты        // нормали           // текстурные координаты
+   -1.1f, -0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+    1.1, -0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+    1.1,  0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+    1.1,  0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+   -1.1,  0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+   -1.1, -0.3f, -0.2f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+
+   -1.1, -0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+    1.1, -0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+    1.1,  0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+    1.1,  0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+   -1.1,  0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+   -1.1, -0.3f,  0.2f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+
+   //левая
+   -1.1,  0.3f,  0.2f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+   -1.1,  0.3f, -0.2f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+   -1.1, -0.3f, -0.2f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -1.1, -0.3f, -0.2f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -1.1, -0.3f,  0.2f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+   -1.1,  0.3f,  0.2f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+   //правая
+    1.1,  0.3f,  0.2f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    1.1,  0.3f, -0.2f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    1.1, -0.3f, -0.2f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    1.1, -0.3f, -0.2f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    1.1, -0.3f,  0.2f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    1.1,  0.3f,  0.2f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    //нижня7
+   -1.1, -0.3f, -0.2f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+    1.1, -0.3f, -0.2f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+    1.1, -0.3f,  0.2f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    1.1, -0.3f,  0.2f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+   -1.1, -0.3f,  0.2f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+   -1.1, -0.3f, -0.2f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+
+   -1.1,  0.3f, -0.2f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+    1.1,  0.3f, -0.2f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+    1.1,  0.3f,  0.2f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    1.1,  0.3f,  0.2f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+   -1.1,  0.3f,  0.2f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+   -1.1,  0.3f, -0.2f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+};
+float pointLightVertices[] = {
+    // координаты        // нормали           // текстурные координаты
+   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+    0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+    0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+    0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+   -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+   -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+
+   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+    0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+   -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+   -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+
+   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+    0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+    0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+
+   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+    0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+};
+float second_cube_vertices[] = {
+    // координаты        // нормали           // текстурные координаты
+   -0.5f, -0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+    0.5f, -0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+    0.5f,  0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+    0.5f,  0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+   -0.5f,  0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+   -0.5f, -0.3f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+
+   -0.5f, -0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+    0.5f, -0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+    0.5f,  0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+    0.5f,  0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+   -0.5f,  0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+   -0.5f, -0.3f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+
+   -0.5f,  0.3f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f,  0.3f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+   -0.5f, -0.3f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -0.5f, -0.3f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+   -0.5f, -0.3f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f,  0.3f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+    0.5f,  0.3f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    0.5f,  0.3f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    0.5f, -0.3f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.3f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.3f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    0.5f,  0.3f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+
+   -0.5f, -0.3f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+    0.5f, -0.3f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+    0.5f, -0.3f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    0.5f, -0.3f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f, -0.3f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f, -0.3f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+
+   -0.5f,  0.3f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+    0.5f,  0.3f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+    0.5f,  0.3f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    0.5f,  0.3f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+   -0.5f,  0.3f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+   -0.5f,  0.3f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+};
+// Координаты всех контейнеров
+glm::vec3 cubePositions[] = {
+    glm::vec3(0.0f,  0.0f,  0.0f),
+
+};
+glm::vec3 second_cube_positions[] = {
+    glm::vec3(-0.8f,  0.0f,  -0.4f),
+
+};
+// Координаты точечных источников света
+glm::vec3 pointLightPositions[] = {
+    glm::vec3(0.7f,  0.2f,  2.0f),
+    glm::vec3(2.3f, -3.3f, -4.0f),
+    glm::vec3(-4.0f,  2.0f, -12.0f),
+    glm::vec3(0.0f,  3.0f, -3.0f)
+};
 int main()
 {
     // glfw: инициализация и конфигурирование
@@ -41,12 +195,9 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // раскомментируйте эту строку, если используете macOS
-#endif
 
     // glfw: создание окна
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "OpenGL for Ravesli.com", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "more light", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -76,125 +227,17 @@ int main()
     Shader lightCubeShader("../6.light_cube_vs.glsl", "../6.light_cube_fs.glsl");
 
     // Указание вершин (и буфера(ов)) и настройка вершинных атрибутов
-    float vertices[] = {
-         // координаты        // нормали           // текстурные координаты
-        -0.5f, -0.5f, -0.9f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-    };
-    float pointLightVertices[] = {
-        // координаты        // нормали           // текстурные координаты
-       -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-       -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-       -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-
-       -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-       -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-       -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-
-       -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-       -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-       -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-       -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-       -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-       -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-
-       -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-       -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-       -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-
-       -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-       -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-       -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
-    };
-    // Координаты всех контейнеров
-    glm::vec3 cubePositions[] = {
-        glm::vec3(0.0f,  0.0f,  0.0f),
-        glm::vec3(2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3(2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3(1.3f, -2.0f, -2.5f),
-        glm::vec3(1.5f,  2.0f, -2.5f),
-        glm::vec3(1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
-
-    // Координаты точечных источников света
-    glm::vec3 pointLightPositions[] = {
-        glm::vec3(0.7f,  0.2f,  2.0f),
-        glm::vec3(2.3f, -3.3f, -4.0f),
-        glm::vec3(-4.0f,  2.0f, -12.0f),
-        glm::vec3(0.0f,  0.0f, -3.0f)
-    };
+ 
 
     // 1. Настраиваем VAO (и VBO) куба
-    unsigned int VBOs[2], cubeVAO;
-    glGenVertexArrays(1, &cubeVAO);
+    unsigned int VBOs[3], cubeVAO[2];
+    glGenVertexArrays(2, cubeVAO);
     glGenBuffers(2, VBOs);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindVertexArray(cubeVAO);
+    glBindVertexArray(cubeVAO[0]);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
@@ -202,7 +245,17 @@ int main()
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // 2. Настраиваем VAO света (VBO остается неизменным; вершины те же и для светового объекта, который также является 3D-кубом)
+    glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(second_cube_vertices), second_cube_vertices, GL_STATIC_DRAW);
+
+    glBindVertexArray(cubeVAO[1]);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+    //Настраиваем VAO света 
     unsigned int lightCubeVAO;
     glGenVertexArrays(1, &lightCubeVAO);
     glBindVertexArray(lightCubeVAO);
@@ -210,13 +263,16 @@ int main()
     glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(pointLightVertices), pointLightVertices, GL_STATIC_DRAW);
 
-    // Обратите внимание, что мы обновляем шаг атрибута положения лампы, чтобы отразить обновленные данные буфера
+    
+
+
+    // Обновляем шаг атрибута положения лампы, чтобы отразить обновленные данные буфера
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // Загрузка текстур
-    unsigned int diffuseMap = loadTexture("../textures/wooden_container_2.png");
-    unsigned int specularMap = loadTexture("../textures/container_2_specular.png");
+    unsigned int diffuseMap = loadTexture("../textures/metal.jpg");
+    unsigned int specularMap = loadTexture("../textures/metal.jpg");
 	
     // Конфигурация шейдеров
     lightingShader.use();
@@ -235,26 +291,24 @@ int main()
         processInput(window);
 
         // Рендеринг
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Убеждаемся, что активировали шейдер прежде, чем настраивать uniform-переменные/объекты_рисования
         lightingShader.use();
         lightingShader.setVec3("viewPos", camera.Position);
         lightingShader.setFloat("material.shininess", 32.0f);
-
-
-        // Направленный свет
         lightingShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
         lightingShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
         lightingShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
         lightingShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+
 		
         // Точечный источник света №1
         lightingShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-        lightingShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-        lightingShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-        lightingShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("pointLights[0].ambient", 0.19225f, 0.19225f, 0.19225f);
+        lightingShader.setVec3("pointLights[0].diffuse", 0.50754f, 0.50754f, 0.50754f);
+        lightingShader.setVec3("pointLights[0].specular", 0.508273f, 0.508273f, 0.508273f);
         lightingShader.setFloat("pointLights[0].constant", 1.0f);
         lightingShader.setFloat("pointLights[0].linear", 0.09);
         lightingShader.setFloat("pointLights[0].quadratic", 0.032);
@@ -265,8 +319,8 @@ int main()
         lightingShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[1].constant", 1.0f);
-        lightingShader.setFloat("pointLights[1].linear", 0.09);
-        lightingShader.setFloat("pointLights[1].quadratic", 0.032);
+        lightingShader.setFloat("pointLights[1].linear", 0.7);
+        lightingShader.setFloat("pointLights[1].quadratic", 1.8);
 		
         // Точечный источник света №3
         lightingShader.setVec3("pointLights[2].position", pointLightPositions[2]);
@@ -274,8 +328,8 @@ int main()
         lightingShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[2].constant", 1.0f);
-        lightingShader.setFloat("pointLights[2].linear", 0.09);
-        lightingShader.setFloat("pointLights[2].quadratic", 0.032);
+        lightingShader.setFloat("pointLights[2].linear", 0.7);
+        lightingShader.setFloat("pointLights[2].quadratic", 1.8);
 		
         // Точечный источник света №4
         lightingShader.setVec3("pointLights[3].position", pointLightPositions[3]);
@@ -283,15 +337,15 @@ int main()
         lightingShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
         lightingShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
         lightingShader.setFloat("pointLights[3].constant", 1.0f);
-        lightingShader.setFloat("pointLights[3].linear", 0.09);
-        lightingShader.setFloat("pointLights[3].quadratic", 0.032);
-		
+        lightingShader.setFloat("pointLights[3].linear", 0.7);
+        lightingShader.setFloat("pointLights[3].quadratic", 1.8);
+
         // Прожектор
         lightingShader.setVec3("spotLight.position", camera.Position);
         lightingShader.setVec3("spotLight.direction", camera.Front);
-        lightingShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-        lightingShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
-        lightingShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("spotLight.ambient", 0.19225f, 0.19225f, 0.19225f);
+        lightingShader.setVec3("spotLight.diffuse", 0.50754f, 0.50754f, 0.50754f);
+        lightingShader.setVec3("spotLight.specular", 0.508273f, 0.508273f, 0.508273f);
         lightingShader.setFloat("spotLight.constant", 1.0f);
         lightingShader.setFloat("spotLight.linear", 0.09);
         lightingShader.setFloat("spotLight.quadratic", 0.032);
@@ -317,8 +371,8 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         // Рендеринг контейнеров
-        glBindVertexArray(cubeVAO);
-        for (unsigned int i = 0; i < 10; i++)
+        glBindVertexArray(cubeVAO[0]);
+        for (unsigned int i = 0; i < 1; i++)
         {
             // Вычисляем матрицу модели для каждого объекта и передаем её в шейдер
             glm::mat4 model = glm::mat4(1.0f);
@@ -328,8 +382,23 @@ int main()
             lightingShader.setMat4("model", model);
 
             glDrawArrays(GL_TRIANGLES, 0, 36);
+        } 
+        glBindVertexArray(cubeVAO[1]);
+        for (unsigned int i = 0; i < 1; i++)
+        {
+            // Вычисляем матрицу модели для каждого объекта и передаем её в шейдер
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, second_cube_positions[i]);
+            float angle = 20.0f*i;
+            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+            model = glm::scale(model, glm::vec3(0.6f)); // меньший куб
+            lightingShader.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
+       
+        glDrawArrays(GL_TRIANGLES, 0, 36);
         // Также отрисовываем объект лампы
         lightCubeShader.use();
         lightCubeShader.setMat4("projection", projection);
@@ -337,7 +406,7 @@ int main()
 
         // А теперь мы отрисовываем столько ламп, сколько у нас есть точечных источников света
         glBindVertexArray(lightCubeVAO);
-        for (unsigned int i = 0; i < 4; i++)
+        for (unsigned int i = 0; i < 1; i++)
         {
             model = glm::mat4(1.0f);
             model = glm::translate(model, pointLightPositions[i]);
@@ -352,7 +421,7 @@ int main()
     }
 
     // Опционально: освобождаем все ресурсы, как только они выполнили свое предназначение
-    glDeleteVertexArrays(1, &cubeVAO);
+    glDeleteVertexArrays(2, cubeVAO);
     glDeleteVertexArrays(1, &lightCubeVAO);
     glDeleteBuffers(1, VBOs);
 
