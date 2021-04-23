@@ -1,22 +1,21 @@
 ﻿  main.cpp
 C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(85,1): warning C4305: инициализация: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(286,28): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(313,62): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(314,66): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(322,61): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(323,64): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(331,61): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(332,64): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(340,61): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(341,64): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(350,57): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(351,61): warning C4305: аргумент: усечение из "double" в "float"
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(463,17): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(464,17): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(468,19): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(469,19): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(471,13): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(472,13): warning C4244: =: преобразование "double" в "float", возможна потеря данных
-C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(480,31): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
-LINK : warning LNK4098: библиотека по умолчанию "MSVCRT" конфликтует с использованием других библиотек; используйте /NODEFAULTLIB:library
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(345,28): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(372,62): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(373,66): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(381,61): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(382,64): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(390,61): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(391,64): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(399,61): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(400,64): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(409,57): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(410,61): warning C4305: аргумент: усечение из "double" в "float"
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(529,17): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(530,17): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(534,19): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(535,19): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(537,13): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(538,13): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Code\C++\opengl-snippets\more lights\Hello_Window\main.cpp(546,31): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
   Hello_Window.vcxproj -> C:\Code\C++\opengl-snippets\more lights\x64\Debug\Lighting.exe
